@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import appContext from './appContext'
 import appReducer from './appReducer'
 import axiosClient from '../../config/axiosClient'
-import authToken from '../../config/authTokenf'
+import authToken from '../../config/authToken'
 //Import Types
 
 const AppState = ({ children }) => {
