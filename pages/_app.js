@@ -1,7 +1,14 @@
-import '../styles/globals.css'
+import AuthContext from '../context/auth/AuthContext'
+import AppContext from '../context/app/appContext'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+const MyApp = ({ Component, pageProps }) => {
+  return (
+    <AuthContext>
+      <AppContext>
+        <Component {...pageProps} />
+      </AppContext>
+    </AuthContext>
+  )
 }
 
 export default MyApp
