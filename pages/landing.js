@@ -5,9 +5,16 @@ const Landing = () => {
   return (
     <div>
       <div>
-        <h1>Landing</h1>
-        <Link href="/login">Iniciar sesión</Link>
-        <Link href="/signup">Registrarme</Link>
+        <h1>Iniciar sesión</h1>
+        <div>
+          <form>
+            <input type="text" />
+            <input type="password" />
+          </form>
+        </div>
+        <p>
+          ¿No tienes una cuenta? <Link href="/signup">Registrate!</Link>
+        </p>
       </div>
     </div>
   )
