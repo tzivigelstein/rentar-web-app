@@ -1,13 +1,13 @@
-import AuthContext from '../context/auth/AuthContext'
-import AppContext from '../context/app/appContext'
+import AuthState from '../context/auth/AuthState'
+import AppState from '../context/app/appState'
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <AuthContext>
-      <AppContext>
+    <AuthState>
+      <AppState>
         <Component {...pageProps} />
-      </AppContext>
-    </AuthContext>
+      </AppState>
+    </AuthState>
   )
 }
 

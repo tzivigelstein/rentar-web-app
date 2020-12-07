@@ -2,12 +2,12 @@ import React, { useReducer } from 'react'
 import authContext from './authContext'
 import authReducer from './authReducer'
 import axiosClient from '../../config/axiosClient'
-import authToken from '../../config/authTokenf'
+import authToken from '../../config/authToken'
 //Import Types
 
 const AuthState = ({ children }) => {
   const initialState = {
-    token: typeof window != undefined ? localStorage.getItem('token') : '',
+    token: typeof window != 'undefined' ? localStorage.getItem('token') : '',
     auth: null,
     user: null,
     msg: null,
