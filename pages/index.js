@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import appContext from '../context/app/appContext'
 import styled from '@emotion/styled'
+import Layout from '../components/Layout'
 
 const HorizontalPosts = styled.ul`
   padding: 0;
@@ -41,7 +42,7 @@ const Index = () => {
     getPosts()
   }, [])
   return (
-    <div>
+    <Layout>
       <h1>Home</h1>
       {posts ? (
         <HorizontalPosts>
@@ -73,7 +74,7 @@ const Index = () => {
       ) : (
         <p>No hay publicaciones</p>
       )}
-    </div>
+    </Layout>
   )
 }
 

@@ -5,7 +5,7 @@ import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
 import { GET_POSTS_SUCCESS, GET_POSTS_ERROR } from '../../types/index'
 
-const AppState = ({ children }) => {
+const AppState = ({children}) => {
   const initialState = {
     posts: null,
   }
