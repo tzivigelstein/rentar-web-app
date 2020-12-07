@@ -4,8 +4,9 @@ import appReducer from './appReducer'
 import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
 import { GET_POSTS_SUCCESS, GET_POSTS_ERROR } from '../../types/index'
+import { results } from '../../posts'
 
-const AppState = ({children}) => {
+const AppState = ({ children }) => {
   const initialState = {
     posts: null,
   }
@@ -15,10 +16,11 @@ const AppState = ({children}) => {
 
   const getPosts = async () => {
     try {
-      const q = await axiosClient('/posts')
+      /* const q = await axiosClient('/posts') */
+      const q = results.posts
       dispatch({
         type: GET_POSTS_SUCCESS,
-        payload: q.data,
+        payload: q,
       })
     } catch (error) {
       dispatch({
