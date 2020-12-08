@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
+import Link from 'next/link'
 import appContext from '../context/app/appContext'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 
 const TitlesH2 = styled.h2`
-  margin-left: 1.5rem;
+  margin-left: 0.8rem;
+  font-weight: bold;
+  font-size: 24pt;
 `
 
 const HorizontalPosts = styled.ul`
@@ -38,11 +41,13 @@ const HorizontalPostImage = styled.img`
 
 const ListPosts = styled.ul`
   padding: 0;
+  background: #f0f2f5;
 `
 
 const ListPostContainer = styled.div`
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
+  background: #fff;
 `
 
 const ListPostImage = styled.img`
@@ -64,7 +69,6 @@ const PostInfoData = styled.div`
 
 const Icon = styled.img`
   width: 1.3rem;
-  fill: #a2a5a9;
   transition: all 0.3s ease;
 
   &:active {
@@ -84,6 +88,7 @@ const PostInteraction = styled.div`
 
 const Likes = styled.p`
   margin-left: 1rem;
+  padding-bottom: 1rem;
 `
 
 const Index = () => {
@@ -95,25 +100,26 @@ const Index = () => {
   useEffect(() => {
     getPosts()
   }, [])
-
   return (
     <Layout>
       <TitlesH2>Recientes</TitlesH2>
       {posts ? (
         <HorizontalPosts>
           {posts.map(post => (
-            <HorizontalPostContainer key={post._id}>
-              <HorizontalPostImage src="/house.jpg" />
-              <PostInfo>
-                <h3>{post.title}</h3>
-                <PostInfoData>
-                  <Icon src="/bath.svg" alt="" />
-                  <p>{post.bathroom}</p>
-                  <Icon src="/environments.svg" alt="" />
-                  <p>{post.environments} amb.</p>
-                </PostInfoData>
-              </PostInfo>
-            </HorizontalPostContainer>
+            <Link key={post._id} href="/posts/[id]" as={`/posts/${post._id}`}>
+              <HorizontalPostContainer>
+                <HorizontalPostImage src="/house.jpg" />
+                <PostInfo>
+                  <h3>{post.title}</h3>
+                  <PostInfoData>
+                    <Icon src="/bath.svg" alt="" />
+                    <p>{post.bathroom}</p>
+                    <Icon src="/environments.svg" alt="" />
+                    <p>{post.environments} amb.</p>
+                  </PostInfoData>
+                </PostInfo>
+              </HorizontalPostContainer>
+            </Link>
           ))}
         </HorizontalPosts>
       ) : (
