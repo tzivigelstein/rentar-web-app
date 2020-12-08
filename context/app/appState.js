@@ -6,22 +6,12 @@ import authToken from '../../config/authToken'
 //Import Types
 
 const AppState = ({ children }) => {
-  const initialState = {
-    
-  }
+  const initialState = {}
   const [state, dispatch] = useReducer(appReducer, initialState)
 
   //Dispatch functions
 
-  return (
-    <appContext.Provider
-      value={{
-        
-      }}
-    >
-      {children}
-    </appContext.Provider>
-  )
+  return <appContext.Provider value={{}}>{children}</appContext.Provider>
 }
 
 export default AppState

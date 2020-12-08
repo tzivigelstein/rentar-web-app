@@ -15,6 +15,15 @@ const AuthState = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
 
   //Dispatch functions
+  const signUp = async data => {
+    console.log(data)
+    try {
+      //const q = await axiosClient.post('/api/users', data)
+      //console.log(q.data)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
 
   return (
     <authContext.Provider
@@ -23,6 +32,7 @@ const AuthState = ({ children }) => {
         auth: state.auth,
         user: state.user,
         msg: state.msg,
+        signUp,
       }}
     >
       {children}

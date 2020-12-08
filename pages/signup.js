@@ -1,84 +1,81 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-
-const Form = styled.form`
-  min-width: 300px;
-  min-height: 400px;
-`
-
-const InputContainer = styled.div`
-  padding: 0.5rem 0;
-  margin: 0.5rem 0;
-`
-const Label = styled.label`
-  font-size: 1rem;
-  margin: 0 50px;
-`
-
-const Input = styled.input`
-  color: #888;
-  display: block;
-  font-size: 1.2rem;
-  padding: 0.8rem 10px;
-  margin: 2px auto;
-  width: 75%;
-  border-radius: 12px;
-  border: 1px solid #444;
-  outline: none;
-  &:focus {
-    border-width: 1.2px;
-    border-color: #76b041ff;
-  }
-`
-
-const Button = styled.input`
-  display: block;
-  background-color: #17bebbff;
-  color: white;
-  text-transform: uppercase;
-  border-radius: 12px;
-  padding: 0.8rem 1rem;
-  width: 82%;
-  margin: 2rem auto 1rem auto;
-  border: none;
-  font-size: 1rem;
-  font-weight: bold;
-`
-
-const Account = styled.p`
-  text-align: center;
-  margin-top: 4rem;
-`
+import authContext from '../context/auth/authContext'
+import Head from 'next/head'
+import { Title, Sub, Form, InputContainer, Input, Button, Account, SwitchLink } from '../components/Form/FormStyles'
 
 const Signup = () => {
+  const AuthContext = useContext(authContext)
+  const { signUp } = AuthContext
+
+  const [data, setData] = useState({
+    name: null,
+    email: null,
+    password: null,
+  })
+
+  const handleChange = e => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    signUp(data)
+  }
+
   return (
     <div>
+      <Head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+      </Head>
       <div>
-        <p>Registrarse</p>
+        <Title>rentar</Title>
+        <Sub>Encontrá tu próximo hogar.</Sub>
         <div>
-          <Form>
+          <Form onSubmit={e => handleSubmit(e)}>
             <InputContainer>
-              <Label htmlFor="name">Nombre</Label>
-              <Input id="name" type="text" placeholder="Nombre" />
+              <Input
+                onChange={e => handleChange(e)}
+                id="name"
+                name="name"
+                value={data.name}
+                type="text"
+                placeholder="Nombre"
+              />
             </InputContainer>
             <InputContainer>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="Email" />
+              <Input
+                onChange={e => handleChange(e)}
+                value={data.email}
+                name="email"
+                id="email"
+                type="email"
+                placeholder="Email"
+              />
             </InputContainer>
             <InputContainer>
-              <Label htmlFor="password">Contraseña</Label>
-              <Input id="password" type="password" placeholder="Contraseña" />
+              <Input
+                onChange={e => handleChange(e)}
+                value={data.password}
+                name="password"
+                id="password"
+                type="password"
+                placeholder="Contraseña"
+              />
             </InputContainer>
-            <InputContainer>
-              <Label htmlFor="r-password">Repite la contraseña</Label>
-              <Input id="r-password" type="password" placeholder="Repite la contreseña" />
-            </InputContainer>
-            <Button type="submit" value="Registrarse" />
+            <Button type="submit" value="Regístrate" />
           </Form>
         </div>
         <Account>
-          ¿Ya tienes una cuenta? <Link href="/landing">Inicia sesión!</Link>
+          ¿Ya tienes una cuenta?{' '}
+          <Link href="/landing">
+            <SwitchLink>Inicia sesión!</SwitchLink>
+          </Link>
         </Account>
       </div>
     </div>
