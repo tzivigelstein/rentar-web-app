@@ -3,10 +3,11 @@ import Link from 'next/link'
 import Head from 'next/head'
 import authContext from '../context/auth/authContext'
 import { Title, Sub, Form, InputContainer, Input, Button, Account, SwitchLink } from '../components/Form/FormStyles'
+import Alert from '../components/Alert'
 
 const Landing = () => {
   const AuthContext = useContext(authContext)
-  const { logIn } = AuthContext
+  const { msg, logIn } = AuthContext
 
   const [data, setData] = useState({
     email: null,
@@ -27,6 +28,7 @@ const Landing = () => {
 
   return (
     <div>
+      {msg ? <Alert /> : null}
       <Head>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />

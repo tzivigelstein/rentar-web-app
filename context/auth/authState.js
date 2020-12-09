@@ -3,10 +3,19 @@ import authContext from './authContext'
 import authReducer from './authReducer'
 import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
-import { SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, SHOW_ALERT, CLEAN_ALERT } from '../../types/index'
-import Alert from '../../components/Alert'
+import {
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  AUTH_USER,
+  LOG_OUT,
+  CLEAN_ALERT,
+} from '../../types/index'
+import { useRouter } from 'next/router'
 
 const AuthState = ({ children }) => {
+  const router = useRouter()
   const initialState = {
     token: typeof window != 'undefined' ? localStorage.getItem('token') : '',
     auth: null,
@@ -30,13 +39,16 @@ const AuthState = ({ children }) => {
         payload: error.response.data,
       })
     }
+    setTimeout(() => {
+      dispatch({
+        type: CLEAN_ALERT,
+      })
+    }, 6000)
   }
 
   const logIn = async data => {
-    console.log(data)
-    //const q = await axiosClient.post('/api/users', data)
-    //console.log(q.data)
     try {
+      const q = await axiosClient.post('/api/auth', data)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: q.data,
@@ -44,21 +56,35 @@ const AuthState = ({ children }) => {
     } catch (error) {
       dispatch({
         type: LOGIN_ERROR,
-        payload: error.response,
+        payload: error.response.data,
       })
-      console.log(error.response)
+    }
+    router.push('/')
+  }
+
+  const authUser = async () => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      authToken(token)
+    }
+
+    try {
+      const q = await axiosClient.get('/api/auth')
+      console.log(q)
+      if (q.data.user) {
+        dispatch({
+          type: AUTH_USER,
+          payload: q.data.user,
+        })
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
-  const showAlert = msg => {
+  const logOut = () => {
     dispatch({
-      type: SHOW_ALERT,
-    })
-  }
-
-  const cleanAlert = () => {
-    dispatch({
-      type: CLEAN_ALERT,
+      type: LOG_OUT,
     })
   }
 
@@ -72,8 +98,8 @@ const AuthState = ({ children }) => {
         type: state.type,
         signUp,
         logIn,
-        showAlert,
-        cleanAlert,
+        authUser,
+        logOut,
       }}
     >
       {children}
