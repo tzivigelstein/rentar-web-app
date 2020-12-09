@@ -13,6 +13,17 @@ const AppState = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState)
 
   //Dispatch functions
+  const showAlert = msg => {
+    dispatch({
+      type: SHOW_ALERT,
+    })
+  }
+
+  const cleanAlert = () => {
+    dispatch({
+      type: CLEAN_ALERT,
+    })
+  }
 
   const getPosts = async () => {
     try {
@@ -35,6 +46,8 @@ const AppState = ({ children }) => {
       value={{
         posts: state.posts,
         getPosts,
+        showAlert,
+        cleanAlert,
       }}
     >
       {children}

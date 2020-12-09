@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import HorizontalCard from '../components/Card/HorizontalCard'
 import ListCard from '../components/Card/ListCard'
+import authContext from '../context/auth/authContext'
 
 const TitlesH2 = styled.h2`
   margin-left: 0.8rem;
@@ -30,7 +31,14 @@ const Index = () => {
   const AppContext = useContext(appContext)
   const { posts, getPosts } = AppContext
 
+  const AuthContext = useContext(authContext)
+  const { user, authUser } = AuthContext
+
   useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      authUser()
+    }
     getPosts()
   }, [])
 
