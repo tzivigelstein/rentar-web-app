@@ -30,11 +30,11 @@ const Icon = styled.img`
 
 const NewIcon = styled.img`
   width: 1.7rem;
-  margin: 0 0.8rem;
+  margin: 0 1.5rem;
   background: rgb(232, 202, 7);
   background: linear-gradient(315deg, rgba(232, 202, 7, 1) 0%, rgba(82, 199, 64, 1) 35%, rgba(15, 165, 214, 1) 100%);
   border-radius: 25%;
-  padding: 0.15rem 0.2rem;
+  padding: 0.25rem 0.3rem;
 `
 
 const RBox = styled.div`
@@ -109,6 +109,9 @@ const Header = () => {
         ) : null}
         {!(profile == '/profile') && user ? (
           <>
+            <Link href="/chats">
+              <Icon src="/chat.svg" alt="" />
+            </Link>
             <Link href="/new">
               <NewIcon src="/pluswhite.svg" alt="" />
             </Link>

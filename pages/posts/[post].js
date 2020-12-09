@@ -22,6 +22,18 @@ const Description = styled.p`
   font-weight: 300;
 `
 
+const Phone = styled.div`
+  background-color: #17bebbff;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+`
+
 const Table = styled.table`
   width: 100%;
   text-align: left;
@@ -71,6 +83,7 @@ const Post = () => {
           <Image src="/house.jpg" alt="" />
           <InfoContainer>
             <Title>{p ? p.title : null}</Title>
+            <Phone>Contactar</Phone>
             <Description>{p ? p.description : null}</Description>
             <Table>
               <tr>
