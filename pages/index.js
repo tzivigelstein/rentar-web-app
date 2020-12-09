@@ -48,7 +48,7 @@ const Index = () => {
       {posts ? (
         <HorizontalPosts>
           {posts.map(post => (
-            <HorizontalCard post={post} />
+            <HorizontalCard key={post._id} post={post} />
           ))}
         </HorizontalPosts>
       ) : (
@@ -58,7 +58,7 @@ const Index = () => {
       {posts ? (
         <ListPosts>
           {posts.map(post => (
-            <ListCard post={post} />
+            <ListCard key={post._id} post={post} />
           ))}
         </ListPosts>
       ) : (

@@ -30,7 +30,7 @@ const PostInfoData = styled.div`
 
 const HorizontalCard = ({ post }) => {
   return (
-    <Link key={post._id} href="/posts/[id]" as={`/posts/${post._id}`}>
+    <Link href="/posts/[id]" as={`/posts/${post._id}`}>
       <HorizontalPostContainer>
         <HorizontalPostImage src="/house.jpg" />
         <PostInfo>

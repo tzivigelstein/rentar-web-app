@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import Layout from '../../components/Layout'
 import { useRouter } from 'next/router'
 import appContext from '../../context/app/appContext'
+import authContext from '../../context/auth/authContext'
 import styled from '@emotion/styled'
 
 const Image = styled.img`
@@ -30,6 +31,9 @@ const Post = () => {
   const AppContext = useContext(appContext)
   const { posts, getPosts } = AppContext
 
+  const AuthContext = useContext(authContext)
+  const { authUser } = AuthContext
+
   const [p, setP] = useState(null)
 
   const router = useRouter()
@@ -38,39 +42,51 @@ const Post = () => {
   } = router
 
   useEffect(() => {
-    const findOne = () => {
-      const indexed = posts.reduce(
-        (acc, el) => ({
-          ...acc,
-          [el._id]: el,
-        }),
-        {}
-      )
-      return indexed
+    const token = localStorage.getItem('token')
+    if (token) {
+      authUser()
     }
-    const r = findOne()
-    setP(r[post])
+    if (posts) {
+      const findOne = () => {
+        const indexed = posts.reduce(
+          (acc, el) => ({
+            ...acc,
+            [el._id]: el,
+          }),
+          {}
+        )
+        return indexed
+      }
+      const r = findOne()
+      setP(r[post])
+    } else {
+      getPosts()
+    }
   }, [])
 
   return (
     <Layout>
-      <div>
-        <Image src="/house.jpg" alt="" />
-        <InfoContainer>
-          <Title>{p ? p.title : null}</Title>
-          <Description>{p ? p.description : null}</Description>
-          <Table>
-            <tr>
-              <th>Ambientes</th>
-              <th>Baños</th>
-            </tr>
-            <tr>
-              <td>{p ? p.environments : null}</td>
-              <td>{p ? p.bathroom : null}</td>
-            </tr>
-          </Table>
-        </InfoContainer>
-      </div>
+      {posts ? (
+        <div>
+          <Image src="/house.jpg" alt="" />
+          <InfoContainer>
+            <Title>{p ? p.title : null}</Title>
+            <Description>{p ? p.description : null}</Description>
+            <Table>
+              <tr>
+                <th>Ambientes</th>
+                <th>Baños</th>
+              </tr>
+              <tr>
+                <td>{p ? p.environments : null}</td>
+                <td>{p ? p.bathroom : null}</td>
+              </tr>
+            </Table>
+          </InfoContainer>
+        </div>
+      ) : (
+        <p>Hubo un error</p>
+      )}
     </Layout>
   )
 }

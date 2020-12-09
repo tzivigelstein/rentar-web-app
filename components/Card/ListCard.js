@@ -17,7 +17,7 @@ const ListCard = ({ post }) => {
   const [like, setLike] = useState(false)
 
   return (
-    <ListPostContainer key={post._id}>
+    <ListPostContainer>
       <ListPostImage src="/house.jpg" />
       <PostInfo>
         <h3>{post.title}</h3>
