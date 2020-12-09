@@ -29,12 +29,10 @@ const Landing = () => {
   return (
     <div>
       {msg ? <Alert /> : null}
-      <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-      </Head>
       <div>
-        <Title>rentar</Title>
+        <Link href="/">
+          <Title>rentar</Title>
+        </Link>
         <Sub>Encontrá tu próximo hogar.</Sub>
         <div>
           <Form onSubmit={e => handleSubmit(e)}>
@@ -62,9 +60,9 @@ const Landing = () => {
           </Form>
         </div>
         <Account>
-          ¿No tienes una cuenta?{' '}
+          <span>¿No tienes una cuenta? </span>
           <Link href="/signup">
-            <SwitchLink>Registrate</SwitchLink>
+            <SwitchLink>Regístrate</SwitchLink>
           </Link>
         </Account>
       </div>

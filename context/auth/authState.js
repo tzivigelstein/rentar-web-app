@@ -70,7 +70,6 @@ const AuthState = ({ children }) => {
 
     try {
       const q = await axiosClient.get('/api/auth')
-      console.log(q)
       if (q.data.user) {
         dispatch({
           type: AUTH_USER,

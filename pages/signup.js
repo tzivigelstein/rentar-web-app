@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Link from 'next/link'
 import authContext from '../context/auth/authContext'
-import Head from 'next/head'
 import { Title, Sub, Form, InputContainer, Input, Button, Account, SwitchLink } from '../components/Form/FormStyles'
 import Alert from '../components/Alert'
 
@@ -30,10 +29,6 @@ const Signup = () => {
   return (
     <div>
       {msg ? <Alert /> : null}
-      <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-      </Head>
       <div>
         <Link href="/">
           <Title>rentar</Title>
@@ -75,8 +70,8 @@ const Signup = () => {
           </Form>
         </div>
         <Account>
-          ¿Ya tienes una cuenta?{' '}
-          <Link href="/landing">
+          <span>¿Ya tienes una cuenta? </span>
+          <Link href="/login">
             <SwitchLink>Inicia sesión</SwitchLink>
           </Link>
         </Account>
