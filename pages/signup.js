@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 import Link from 'next/link'
-import styled from '@emotion/styled'
 import authContext from '../context/auth/authContext'
 import Head from 'next/head'
 import { Title, Sub, Form, InputContainer, Input, Button, Account, SwitchLink } from '../components/Form/FormStyles'
+import Alert from '../components/Alert'
 
 const Signup = () => {
   const AuthContext = useContext(authContext)
-  const { signUp } = AuthContext
+  const { msg, signUp } = AuthContext
 
   const [data, setData] = useState({
     name: null,
@@ -29,12 +29,15 @@ const Signup = () => {
 
   return (
     <div>
+      {msg ? <Alert /> : null}
       <Head>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
       </Head>
       <div>
-        <Title>rentar</Title>
+        <Link href="/">
+          <Title>rentar</Title>
+        </Link>
         <Sub>Encontrá tu próximo hogar.</Sub>
         <div>
           <Form onSubmit={e => handleSubmit(e)}>
@@ -74,7 +77,7 @@ const Signup = () => {
         <Account>
           ¿Ya tienes una cuenta?{' '}
           <Link href="/landing">
-            <SwitchLink>Inicia sesión!</SwitchLink>
+            <SwitchLink>Inicia sesión</SwitchLink>
           </Link>
         </Account>
       </div>

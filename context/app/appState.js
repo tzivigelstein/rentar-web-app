@@ -6,7 +6,9 @@ import authToken from '../../config/authToken'
 //Import Types
 
 const AppState = ({ children }) => {
-  const initialState = {}
+  const initialState = {
+    msg: null,
+  }
   const [state, dispatch] = useReducer(appReducer, initialState)
 
   //Dispatch functions

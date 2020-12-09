@@ -7,6 +7,9 @@ export const Title = styled.p`
   padding: 1rem 0 1rem 0;
   margin: 0;
   color: #000;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Sub = styled.p`
@@ -63,6 +66,9 @@ export const Button = styled.input`
   border: none;
   font-size: 1.2rem;
   font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Account = styled.p`
@@ -72,6 +78,8 @@ export const Account = styled.p`
 
 export const SwitchLink = styled.a`
   color: #17bebbff;
+  cursor: pointer;
+  text-decoration: underline;
   &:visited {
     color: #76b041ff;
   }
