@@ -3,26 +3,37 @@ import appContext from './appContext'
 import appReducer from './appReducer'
 import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
-import { GET_POSTS_SUCCESS, GET_POSTS_ERROR } from '../../types/index'
+import { GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
 import { results } from '../../posts'
 
 const AppState = ({ children }) => {
   const initialState = {
     posts: null,
+    newPost: {
+      file: null,
+      title: null,
+      description: null,
+      location: null,
+      price: null,
+    },
   }
   const [state, dispatch] = useReducer(appReducer, initialState)
 
   //Dispatch functions
-  const showAlert = msg => {
-    dispatch({
-      type: SHOW_ALERT,
-    })
+
+  const uploadFiles = data => {
+    console.log(data)
   }
 
-  const cleanAlert = () => {
-    dispatch({
-      type: CLEAN_ALERT,
-    })
+  const createNewPost = data => {
+    try {
+      dispatch({
+        type: SET_NEW_POST_DATA,
+        payload: data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const getPosts = async () => {
@@ -41,10 +52,25 @@ const AppState = ({ children }) => {
     }
   }
 
+  const showAlert = msg => {
+    dispatch({
+      type: SHOW_ALERT,
+    })
+  }
+
+  const cleanAlert = () => {
+    dispatch({
+      type: CLEAN_ALERT,
+    })
+  }
+
   return (
     <appContext.Provider
       value={{
         posts: state.posts,
+        newPost: state.newPost,
+        uploadFiles,
+        createNewPost,
         getPosts,
         showAlert,
         cleanAlert,

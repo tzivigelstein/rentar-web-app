@@ -10,5 +10,7 @@ export const LOG_OUT = 'LOG_OUT'
 
 export const AUTH_USER = 'AUTH_USER'
 
+export const SET_NEW_POST_DATA = 'SET_NEW_POST_DATA'
+
 export const SHOW_ALERT = 'SHOW_ALERT'
 export const CLEAN_ALERT = 'CLEAN_ALERT'

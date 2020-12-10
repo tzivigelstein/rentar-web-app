@@ -1,59 +1,54 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Layout from '../components/Layout'
 import { Form, InputContainer, Input } from '../components/Form/FormStyles'
-import styled from '@emotion/styled'
-
-const FileInput = styled.label`
-  display: flex;
-  font-size: 1.2rem;
-  justify-content: center;
-  align-items: center;
-  margin: 2px auto;
-  width: 100%;
-  border-radius: 8px;
-  border: 3px dashed #aaa;
-  outline: none;
-  height: 100px;
-  &:focus {
-    border-width: 1.7px;
-    border-color: #76b041ff;
-  }
-`
-
-const InputText = styled.p`
-  text-align: center;
-  background: #76b041ff;
-  color: white;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-`
-
-const HiddenInput = styled.input`
-  display: none;
-`
+import Dropzone from '../components/Dropzone'
+import authContext from '../context/auth/authContext'
+import { useRouter } from 'next/router'
 
 const New = () => {
+  const AuthContext = useContext(authContext)
+  const { auth } = AuthContext
+
   return (
     <Layout>
+      <Dropzone />
       <Form>
-        <InputContainer>
-          <FileInput htmlFor="file">
-            <InputText>Sube tus imágenes</InputText>
-          </FileInput>
-          <HiddenInput type="file" id="file" />
+        {/* <InputContainer>
+          <Input
+            name="title"
+            value={newPost.title}
+            onChange={e => createNewPost({ ...newPost, [e.target.name]: e.target.value })}
+            type="text"
+            placeholder="Título"
+          />
         </InputContainer>
         <InputContainer>
-          <Input type="text" placeholder="Título" />
+          <Input
+            name="description"
+            value={newPost.description}
+            onChange={e => createNewPost({ ...newPost, [e.target.name]: e.target.value })}
+            type="text"
+            placeholder="Descripcion"
+          />
         </InputContainer>
         <InputContainer>
-          <Input type="text" placeholder="Descripcion" />
+          <Input
+            name="location"
+            value={newPost.location}
+            onChange={e => createNewPost({ ...newPost, [e.target.name]: e.target.value })}
+            type="text"
+            placeholder="Ubicación"
+          />
         </InputContainer>
         <InputContainer>
-          <Input type="text" placeholder="Ubicación" />
-        </InputContainer>
-        <InputContainer>
-          <Input type="number" placeholder="Precio" />
-        </InputContainer>
+          <Input
+            name="price"
+            value={newPost.price}
+            onChange={e => createNewPost({ ...newPost, [e.target.name]: e.target.value })}
+            type="number"
+            placeholder="Precio"
+          />
+        </InputContainer> */}
       </Form>
     </Layout>
   )
