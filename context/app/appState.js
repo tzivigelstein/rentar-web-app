@@ -8,6 +8,7 @@ import { results } from '../../posts'
 
 const AppState = ({ children }) => {
   const initialState = {
+    baner: null,
     posts: null,
     newPost: {
       file: null,
@@ -20,6 +21,10 @@ const AppState = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState)
 
   //Dispatch functions
+
+const showAuthBaner = (data) => {
+console.log(data)
+}
 
   const uploadFiles = data => {
     console.log(data)
@@ -67,8 +72,10 @@ const AppState = ({ children }) => {
   return (
     <appContext.Provider
       value={{
+        baner:state.baner,
         posts: state.posts,
         newPost: state.newPost,
+        showAuthBaner,
         uploadFiles,
         createNewPost,
         getPosts,

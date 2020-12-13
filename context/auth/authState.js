@@ -39,11 +39,7 @@ const AuthState = ({ children }) => {
         payload: error.response.data,
       })
     }
-    setTimeout(() => {
-      dispatch({
-        type: CLEAN_ALERT,
-      })
-    }, 6000)
+    router.push('/login')
   }
 
   const logIn = async data => {
@@ -81,7 +77,16 @@ const AuthState = ({ children }) => {
     }
   }
 
+  const updateUser = async data => {
+    try {
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const logOut = () => {
+    router.push('/')
     dispatch({
       type: LOG_OUT,
     })
@@ -98,6 +103,7 @@ const AuthState = ({ children }) => {
         signUp,
         logIn,
         authUser,
+        updateUser,
         logOut,
       }}
     >

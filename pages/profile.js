@@ -1,7 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import authContext from '../context/auth/authContext'
 import styled from '@emotion/styled'
+
+const Container = styled.div`
+  margin-top: 71px;
+`
 
 const UserInfo = styled.div`
   display: flex;
@@ -41,10 +46,15 @@ const Profile = () => {
   const [activeLikes, setActiveLikes] = useState(false)
   const [activePosts, setActivePosts] = useState(true)
 
+  const router = useRouter()
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
       authUser()
+    }
+    if (!auth && !token) {
+      router.push('/login')
     }
   }, [])
 
@@ -73,14 +83,11 @@ const Profile = () => {
     margin-top: 0.3rem;
   `
 
-  /* const spl = user.name.split(' ')
-  const username = (spl[0] + spl[1]).toLowerCase() */
-
   return (
     <>
       {auth ? (
         <Layout>
-          <div>
+          <Container>
             <UserInfo>
               <ProfilePicture src="/user.svg" alt="" />
               <InfoContainer>
@@ -113,7 +120,7 @@ const Profile = () => {
                 <div></div>
               </ul>
             </div>
-          </div>
+          </Container>
         </Layout>
       ) : null}
     </>

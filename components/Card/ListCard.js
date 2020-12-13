@@ -11,6 +11,11 @@ const ListPostContainer = styled.div`
   width: 100%;
   margin-bottom: 1.6rem;
   background: #fff;
+  @media (min-width: 481px) {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+  }
 `
 
 const ListCard = ({ post }) => {
@@ -27,7 +32,7 @@ const ListCard = ({ post }) => {
         <ul>
           <Icon onClick={() => setLike(!like)} src={like ? '/hearts.svg' : '/heartr.svg'} />
           <Icon src="/share.svg" />
-          <Link href="/posts/[id]" as={`/posts/${post._id}`}>
+          <Link href="/post/[id]" as={`/post/${post._id}`}>
             <Icon src="/plus.svg" />
           </Link>
         </ul>
