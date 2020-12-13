@@ -1,6 +1,6 @@
-import React, {useContext} from 'react'
+import React, { useContext, useEffect } from 'react'
 import Link from 'next/link'
-import styled from "@emotion/styled"
+import styled from '@emotion/styled'
 import authContext from '../context/auth/authContext'
 import appContext from '../context/app/appContext'
 import useOnScreen from '../Hooks/useOnScreen'
@@ -58,13 +58,16 @@ const LogButton = styled.button`
 `
 
 const AuthBaner = () => {
-    const AuthContext = useContext(authContext)
-    const { auth } = AuthContext
+  const AuthContext = useContext(authContext)
+  const { auth } = AuthContext
 
-    const AppContext = useContext(appContext)
-    const {  } = AppContext
+  const AppContext = useContext(appContext)
+  const {baner} = AppContext
 
-    const [ref, visible] =  useOnScreen({ rootMargin: '100px', threshold: 1 })
+  let [ref, visible] = useOnScreen({ rootMargin: '0px', threshold: 1 })
+
+  console.log(baner);
+
   return (
     <>
       {!auth ? (

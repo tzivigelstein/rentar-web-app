@@ -46,7 +46,7 @@ const Index = () => {
 
   return (
     <Layout>
-    {!auth ? <AuthBaner/>:null}
+      {!auth ? <AuthBaner /> : null}
       <div>
         <TitlesH2>Recientes</TitlesH2>
         {posts ? (

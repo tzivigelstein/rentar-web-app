@@ -3,7 +3,7 @@ import appContext from './appContext'
 import appReducer from './appReducer'
 import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
-import { GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
+import { SET_AUTH_BANER,GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
 import { results } from '../../posts'
 
 const AppState = ({ children }) => {
@@ -22,9 +22,12 @@ const AppState = ({ children }) => {
 
   //Dispatch functions
 
-const showAuthBaner = (data) => {
-console.log(data)
-}
+  const showAuthBaner = data => {
+    dispatch({
+      type: SET_AUTH_BANER,
+      payload: data,
+    })
+  }
 
   const uploadFiles = data => {
     console.log(data)
@@ -72,7 +75,7 @@ console.log(data)
   return (
     <appContext.Provider
       value={{
-        baner:state.baner,
+        baner: state.baner,
         posts: state.posts,
         newPost: state.newPost,
         showAuthBaner,
