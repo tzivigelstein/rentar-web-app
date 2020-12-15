@@ -32,7 +32,7 @@ const HorizontalCard = ({ post }) => {
   return (
     <Link href="/post/[id]" as={`/post/${post._id}`}>
       <HorizontalPostContainer>
-        <HorizontalPostImage src="/house.jpg" />
+        <HorizontalPostImage src={`/${Math.round(Math.random() * 5)}.jpg`} />
         <PostInfo>
           <h3>{post.title}</h3>
           <PostInfoData>

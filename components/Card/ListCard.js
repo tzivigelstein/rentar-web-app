@@ -11,7 +11,14 @@ const ListPostContainer = styled.div`
   width: 100%;
   margin-bottom: 1.6rem;
   background: #fff;
+
   @media (min-width: 481px) {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
     width: 50%;
     margin: 0 auto;
     margin-bottom: 3rem;
@@ -23,7 +30,7 @@ const ListCard = ({ post }) => {
 
   return (
     <ListPostContainer>
-      <ListPostImage src="/house.jpg" />
+      <ListPostImage src={`/${Math.round(Math.random() * 5)}.jpg`} />
       <PostInfo>
         <h3>{post.title}</h3>
         <p>{post.description}</p>

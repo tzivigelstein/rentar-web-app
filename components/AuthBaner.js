@@ -66,8 +66,6 @@ const AuthBaner = () => {
 
   let [ref, visible] = useOnScreen({ rootMargin: '0px', threshold: 1 })
 
-  console.log(baner);
-
   return (
     <>
       {!auth ? (

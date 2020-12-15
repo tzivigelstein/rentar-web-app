@@ -65,7 +65,7 @@ const ForwardButton = styled.p`
   margin: 0 auto;
 `
 
-const HiddenInput = styled.input`
+export const HiddenInput = styled.input`
   display: none;
 `
 

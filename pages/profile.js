@@ -3,34 +3,74 @@ import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import authContext from '../context/auth/authContext'
 import styled from '@emotion/styled'
+import { HiddenInput } from '../components/Dropzone'
+import { Container } from '../components/Global'
+import axios from 'axios'
 
-const Container = styled.div`
-  margin-top: 71px;
+const UserName = styled.h2`
+  margin: 0;
+  font-size: 1.3rem;
+  text-align: center;
+  line-height: 1;
+  color: #333;
+  padding: 0.8rem;
 `
 
 const UserInfo = styled.div`
   display: flex;
   border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
 `
 
-const ProfilePicture = styled.img`
-  width: 6rem;
+const ProfilePicture = styled.label`
+  position: relative;
   margin: 1rem;
+  img {
+    width: 6rem;
+    height: 5.9rem;
+    border: 2px solid #76b041ff;
+    border-radius: 50%;
+    background-size: cover;
+    padding: 0.2rem;
+  }
+`
+
+const PreviewText = styled.p`
+  position: absolute;
+  color: #fff;
+  text-transform: uppercase;
+  top: 2.5rem;
+  left: 0.9rem;
+  padding: 0;
+  margin: 0;
 `
 
 const InfoContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 `
 
 const Name = styled.p`
-  font-size: 2rem;
-  padding: 0;
-  margin: 2rem 0 0 0;
-`
-const UserName = styled.p`
   font-size: 1rem;
   padding: 0;
-  margin: 0.6rem 0;
+  margin: 0 auto;
+`
+
+const SaveChanges = styled.button`
+  text-transform: uppercase;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  background-color: #17bebbff;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.5rem 2rem;
+  width: 90%;
+  height: 2.5rem;
+  margin: 0 auto;
 `
 
 const Selector = styled.div`
@@ -45,6 +85,9 @@ const Profile = () => {
 
   const [activeLikes, setActiveLikes] = useState(false)
   const [activePosts, setActivePosts] = useState(true)
+  const [activeButton, setActiveButton] = useState(false)
+  const [newImage, setNewImage] = useState(null)
+  const [preview, setPreview] = useState(null)
 
   const router = useRouter()
 
@@ -57,6 +100,32 @@ const Profile = () => {
       router.push('/login')
     }
   }, [])
+
+  const ref = React.useRef()
+
+  const setPreviewImage = e => {
+    setNewImage(e[0])
+    try {
+      const image = URL.createObjectURL(e[0])
+      setPreview(image)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const uploadProfilePicture = async () => {
+    const f = new FormData()
+    f.append('files', newImage)
+    const q = await axios.post('http://192.168.0.6:4001/', f)
+    console.log(q.data)
+  }
+
+  const clear = () => {
+    setNewImage(null)
+    setPreview(null)
+    setActiveButton(false)
+    ref.current.value = ''
+  }
 
   let active1 = ''
   let active2 = ''
@@ -88,11 +157,47 @@ const Profile = () => {
       {auth ? (
         <Layout>
           <Container>
+            <UserName>{`@${user.username}`}</UserName>
             <UserInfo>
-              <ProfilePicture src="/user.svg" alt="" />
+              <ProfilePicture htmlFor="profile">
+                <img src={preview ? `${preview}` : '/user.svg'} alt="" />
+                {preview ? <PreviewText>preview</PreviewText> : null}
+              </ProfilePicture>
+              <HiddenInput
+                onChange={e => {
+                  setActiveButton(true)
+                  setPreviewImage(e.target.files)
+                }}
+                accept="image/*"
+                type="file"
+                name="files"
+                id="profile"
+                ref={ref}
+              />
               <InfoContainer>
-                <Name>{user.name}</Name>
-                <UserName>{user.username ? `@${user.username}` : null}</UserName>
+                {activeButton ? (
+                  <>
+                    <SaveChanges
+                      onClick={() => {
+                        uploadProfilePicture()
+                        clear()
+                      }}
+                      type="submit"
+                    >
+                      Cambiar
+                    </SaveChanges>
+                    <SaveChanges
+                      onClick={() => {
+                        clear()
+                      }}
+                      type="submit"
+                    >
+                      Cancelar
+                    </SaveChanges>
+                  </>
+                ) : (
+                  <Name>{user ? user.name : null}</Name>
+                )}
               </InfoContainer>
             </UserInfo>
             <div>

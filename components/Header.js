@@ -3,27 +3,28 @@ import styled from '@emotion/styled'
 import Link from 'next/link'
 import authContext from '../context/auth/authContext'
 import appContext from '../context/app/appContext'
-import useOnScreen from '../Hooks/useOnScreen'
 
 const NavBar = styled.nav`
-position: fixed;
-top: 0;
-width: 100%;
-background: #fff;
-padding: 1rem;
-display: flex;
-justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 54px;
+  background: #fff;
+  padding: 0.5rem 1rem;
+  line-height: 1.5;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
 `
 
 const Title = styled.h1`
   font-family: 'Pacifico', cursive;
   margin: 0;
   padding: 0;
-  line-height: 1;
   color: #000;
   font-weight: 400;
   text-align: left;
-  font-size: 2rem;
+  font-size: 1.5rem;
   display: inline-block;
 `
 
@@ -50,6 +51,12 @@ const Icon = styled.img`
   padding: 0;
   margin: 4px auto;
   float: right;
+`
+
+const BellIcon = styled.img`
+  width: 1.5rem;
+  padding: 0;
+  margin: 4px auto;
 `
 
 const BackText = styled.span`
@@ -115,71 +122,84 @@ const LogButton = styled.button`
 `
 
 const Header = () => {
-    const [profile, setProfile] = useState('')
-  
-    const AuthContext = useContext(authContext)
-    const { auth } = AuthContext
+  const [profile, setProfile] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
 
-    const AppContext = useContext(appContext)
-    const { baner } = AppContext
-  
-    useEffect(() => {
-      if (typeof window !== 'undefined') {
-        setProfile(window.location.pathname)
-      }
-    }, [])
-  
-    return (
-      <NavBar>
-        {profile == '/profile' ? (
-          <Link href="/">
-            <Box>
-              <ChevronIcon src="/chevronl.svg" alt="" />
-              <BackText>Inicio</BackText>
-            </Box>
+  const AuthContext = useContext(authContext)
+  const { auth } = AuthContext
+
+  const AppContext = useContext(appContext)
+  const { baner } = AppContext
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setProfile(window.location.pathname)
+    }
+    if (
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/webOS/i) ||
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/iPod/i) ||
+      navigator.userAgent.match(/BlackBerry/i) ||
+      navigator.userAgent.match(/Windows Phone/i)
+    ) {
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
+    }
+  }, [])
+
+  return (
+    <NavBar>
+      {profile == '/profile' ? (
+        <Link href="/">
+          <Box>
+            <ChevronIcon src="/chevronl.svg" alt="" />
+            <BackText>Inicio</BackText>
+          </Box>
+        </Link>
+      ) : (
+        <Link href="/">
+          <Title>rentar</Title>
+        </Link>
+      )}
+      <RBox>
+        {profile == '/profile' && auth ? (
+          <Link href="/settings">
+            <SettingsIcon src="/settings.svg" alt="" />
           </Link>
-        ) : (
-          <Link href="/">
-            <Title>rentar</Title>
-          </Link>
-        )}
-        <RBox>
-          {profile == '/profile' && auth ? (
-            <Link href="/settings">
-              <SettingsIcon src="/settings.svg" alt="" />
+        ) : null}
+        {!(profile == '/profile') && auth ? (
+          <>
+            <Link href="/notifications">
+              <BellIcon src="/bell.svg" alt="" />
             </Link>
-          ) : null}
-          {!(profile == '/profile') && auth ? (
-            <>
-              <Link href="/chats">
-                <Icon src="/chat.svg" alt="" />
-              </Link>
-              <Link href="/new">
-                <NewIcon src="/pluswhite.svg" alt="" />
-              </Link>
-              <Link href="/profile">
-                <Icon src="/user.svg" alt="" />
-              </Link>
-            </>
-          ) : null}
-          {!auth ? (
-            <Desktop>
-              <Link href="/login">
-                <LogButton>Inciar sesión</LogButton>
-              </Link>
-              <Link href="/signup">
-                <JoinButton>Regístrate</JoinButton>
-              </Link>
-            </Desktop>
-          ) : null}
-          {!auth && !baner ? (
+            <Link href="/new">
+              <NewIcon src="/pluswhite.svg" alt="" />
+            </Link>
+            <Link href="/profile">
+              <Icon src="/user.svg" alt="" />
+            </Link>
+          </>
+        ) : null}
+        {!auth ? (
+          <Desktop>
+            <Link href="/login">
+              <LogButton>Inciar sesión</LogButton>
+            </Link>
             <Link href="/signup">
               <JoinButton>Regístrate</JoinButton>
             </Link>
-          ) : null}
-        </RBox>
-      </NavBar>
-    )
-  }
+          </Desktop>
+        ) : null}
+        {!auth && !baner && isMobile ? (
+          <Link href="/signup">
+            <JoinButton>Regístrate</JoinButton>
+          </Link>
+        ) : null}
+      </RBox>
+    </NavBar>
+  )
+}
 
-  export default Header
+export default Header

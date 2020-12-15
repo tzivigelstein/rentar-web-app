@@ -5,10 +5,7 @@ import { useRouter } from 'next/router'
 import appContext from '../../context/app/appContext'
 import authContext from '../../context/auth/authContext'
 import styled from '@emotion/styled'
-
-const  Container = styled.div`
-margin-top: 71px;
-`
+import { Container } from '../../components/Global'
 
 const Image = styled.img`
   width: 100%;
@@ -119,7 +116,7 @@ const Post = () => {
     <Layout>
       {posts ? (
         <Container>
-          <Image src="/house.jpg" alt="" />
+          <Image src={`/${Math.round(Math.random() * 5)}.jpg`} alt="" />
           <InfoContainer>
             <Title>{p ? p.title : null}</Title>
             {auth ? (
