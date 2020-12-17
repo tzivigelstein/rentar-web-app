@@ -1,4 +1,4 @@
-import { GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
+import { SET_PREVIEW, GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
 
 export default (state, action) => {
   switch (action.type) {
@@ -7,10 +7,10 @@ export default (state, action) => {
         ...state,
         posts: action.payload,
       }
-    case SET_NEW_POST_DATA:
+    case SET_PREVIEW:
       return {
         ...state,
-        newPost: action.payload,
+        preview: action.payload,
       }
     default:
       break

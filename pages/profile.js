@@ -197,6 +197,7 @@ const Profile = () => {
                     <SaveChanges
                       onClick={() => {
                         updateUser(newImage, user.id)
+                        authUser()
                         clear()
                       }}
                       type="submit"

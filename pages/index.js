@@ -18,7 +18,7 @@ export const TitlesH2 = styled.p`
   color: #333;
 `
 
-const HorizontalPosts = styled.ul`
+export const HorizontalPosts = styled.ul`
   padding: 0;
   height: max-content;
   overflow-x: auto;

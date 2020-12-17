@@ -10,6 +10,7 @@ const SignupForm = () => {
     name: '',
     email: '',
     password: '',
+    phone: '',
   })
 
   const handleChange = useCallback(
@@ -36,6 +37,9 @@ const SignupForm = () => {
       </InputContainer>
       <InputContainer>
         <Input onChange={handleChange} value={data.email} name="email" id="email" type="email" placeholder="Email" />
+      </InputContainer>
+      <InputContainer>
+        <Input onChange={handleChange} value={data.phone} name="phone" id="phone" type="phone" placeholder="Telefono" />
       </InputContainer>
       <InputContainer>
         <Input

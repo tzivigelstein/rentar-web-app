@@ -1,25 +1,7 @@
-import React, { useCallback, useContext } from 'react'
-import Link from 'next/link'
-import { useDropzone } from 'react-dropzone'
+import React, { useCallback, useContext, useState } from 'react'
 import appContext from '../context/app/appContext'
 import styled from '@emotion/styled'
 import { Form, Input, InputContainer } from '../components/Form/FormStyles'
-
-const ImageContainer = styled.div`
-  border-bottom: 1px solid #444;
-`
-
-const ImageList = styled.ul`
-  list-style: none;
-  margin-bottom: 1rem;
-  padding: 0;
-  width: 100%;
-`
-
-const Image = styled.img`
-  width: 100%;
-  padding: 0;
-`
 
 const FileInput = styled.label`
   display: flex;
@@ -40,10 +22,6 @@ const FileInput = styled.label`
   }
 `
 
-const Helper = styled.p`
-  color: #777;
-  text-align: center;
-`
 
 const InputText = styled.p`
   text-align: center;
@@ -51,17 +29,6 @@ const InputText = styled.p`
   color: white;
   padding: 0.8rem 1rem;
   border-radius: 8px;
-  margin: 0 auto;
-`
-
-const ForwardButton = styled.p`
-  text-align: center;
-  background: #76b041ff;
-  color: white;
-  font-size: 1.2rem;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  max-width: 90%;
   margin: 0 auto;
 `
 
@@ -74,60 +41,47 @@ const ImageQuantity = styled.div`
   padding: 1.5rem 0 1rem 0;
 `
 
-const Dropzone = () => {
+const Post = () => {
   const AppContext = useContext(appContext)
-  const { uploadFiles } = AppContext
+  const { createPreview } = AppContext
 
-  const formData = new FormData()
+  const maxFiles = 6
 
-  const onDropRejected = () => {
-    console.log('No se aceptó')
-  }
-  const onDropAccepted = useCallback(async acceptedFiles => {
-    formData.append('file', acceptedFiles[0])
+  const handleChange = useCallback(async e => {
+    const acceptedFiles = e.target.files
+    const preview = []
+
+    for (let i = 0; i < acceptedFiles.length; i++) {
+      preview.push(URL.createObjectURL(acceptedFiles[i]))
+    }
+
+    createPreview(preview)
+    /* let count = 0
+    if (count < 6) {
+      const formData = new FormData()
+      for (let i = 0; i < acceptedFiles.length; i++) {
+        formData.append('files', acceptedFiles)
+      }
+      
+      createPost(formData)
+    } else {
+      console.log('El límite es de 6 archivos')
+    } */
   }, [])
-
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
-    accept: 'image/*',
-    onDropAccepted,
-    onDropRejected,
-    maxFiles: 5,
-    maxSize: 5000000,
-  })
-
-  const fileList = acceptedFiles.map(file => (
-    <Image key={file.lastModified} src={URL.createObjectURL(acceptedFiles[0])} />
-  ))
 
   return (
     <>
-      <ImageQuantity>{acceptedFiles.length}/1</ImageQuantity>
+      <ImageQuantity>{/*  {f.length}/{maxFiles} */}</ImageQuantity>
       <InputContainer>
-        {acceptedFiles.length > 0 ? (
-          <ImageContainer>
-            <ImageList>{fileList}</ImageList>
-          </ImageContainer>
-        ) : null}
+        <FileInput htmlFor="file-input">
+          <div>
+            <InputText>Selecciona tus fotos</InputText>
+          </div>
+        </FileInput>
+        <HiddenInput accept="image/*" multiple id="file-input" type="file" onChange={handleChange} />
       </InputContainer>
-      {acceptedFiles.length === 1 ? (
-        <ForwardButton onClick={() => uploadFiles(formData)}>Siguiente</ForwardButton>
-      ) : (
-        <InputContainer>
-          <FileInput {...getRootProps()}>
-            {isDragActive ? (
-              <Helper>Drop it here</Helper>
-            ) : (
-              <div>
-                <Helper>Arrastra tus fotos aquí o</Helper>
-                <InputText>Selecciona tus fotos</InputText>
-              </div>
-            )}
-          </FileInput>
-          <HiddenInput multiple id="file-input" {...getInputProps()} />
-        </InputContainer>
-      )}
     </>
   )
 }
 
-export default Dropzone
+export default Post

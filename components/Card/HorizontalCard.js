@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { PostInfo } from './CardStyles'
 import { Icon } from './CardStyles'
 
-const HorizontalPostContainer = styled.div`
+export const HorizontalPostContainer = styled.div`
   width: 100%;
   min-width: 200px;
   margin-right: 0.8rem;

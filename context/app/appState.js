@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { SET_AUTH_BANER, GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
+import { SET_PREVIEW, GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
 import appContext from './appContext'
 import appReducer from './appReducer'
 import { results } from '../../posts'
@@ -9,6 +9,7 @@ import authToken from '../../config/authToken'
 const AppState = ({ children }) => {
   const initialState = {
     posts: null,
+    preview: null,
     newPost: {
       file: null,
       title: null,
@@ -19,28 +20,15 @@ const AppState = ({ children }) => {
   }
   const [state, dispatch] = useReducer(appReducer, initialState)
 
-  //Dispatch functions
-
-  const showAuthBaner = data => {
+  const createPreview = data => {
     dispatch({
-      type: SET_AUTH_BANER,
+      type: SET_PREVIEW,
       payload: data,
     })
   }
 
-  const uploadFiles = data => {
+  const createPost = data => {
     console.log(data)
-  }
-
-  const createNewPost = data => {
-    try {
-      dispatch({
-        type: SET_NEW_POST_DATA,
-        payload: data,
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   const getPosts = async () => {
@@ -75,10 +63,9 @@ const AppState = ({ children }) => {
     <appContext.Provider
       value={{
         posts: state.posts,
+        preview: state.preview,
         newPost: state.newPost,
-        showAuthBaner,
-        uploadFiles,
-        createNewPost,
+        createPreview,
         getPosts,
         showAlert,
         cleanAlert,

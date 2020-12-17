@@ -157,9 +157,11 @@ const Header = () => {
             <Link href="/new">
               <NewIcon src="/pluswhite.svg" alt="" />
             </Link>
-            <Link href="/profile">
-              <UserIcon src={user ? `${user.path}` : '/user.svg'} alt="" />
-            </Link>
+            {user ? (
+              <Link href="/profile">
+                <UserIcon src={user.path ? `${user.path}` : '/user.svg'} alt="" />
+              </Link>
+            ) : null}
           </RBox>
         </NavBar>
       ) : (
