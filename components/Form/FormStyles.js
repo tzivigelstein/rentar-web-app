@@ -76,7 +76,7 @@ export const Account = styled.p`
   margin-top: 1rem;
 `
 
-export const SwitchLink = styled.a`
+export const SwitchLink = styled.span`
   color: #17bebbff;
   cursor: pointer;
   text-decoration: underline;

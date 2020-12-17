@@ -53,20 +53,17 @@ const Icon = styled.img`
   float: right;
 `
 
+const UserIcon = styled.img`
+  width: 2rem;
+  border-radius: 50%;
+  padding: 0.1rem;
+  border: 1px solid #ddd;
+`
+
 const BellIcon = styled.img`
   width: 1.5rem;
   padding: 0;
   margin: 4px auto;
-`
-
-const BackText = styled.span`
-  font-size: 1.2rem;
-  margin-left: 0.6rem;
-  padding: 0.5rem 0;
-`
-
-const SettingsIcon = styled.img`
-  width: 1.7rem;
 `
 
 const NewIcon = styled.img`
@@ -126,10 +123,7 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(false)
 
   const AuthContext = useContext(authContext)
-  const { auth } = AuthContext
-
-  const AppContext = useContext(appContext)
-  const { baner } = AppContext
+  const { auth, user } = AuthContext
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -150,27 +144,13 @@ const Header = () => {
   }, [])
 
   return (
-    <NavBar>
-      {profile == '/profile' ? (
-        <Link href="/">
-          <Box>
-            <ChevronIcon src="/chevronl.svg" alt="" />
-            <BackText>Inicio</BackText>
-          </Box>
-        </Link>
-      ) : (
-        <Link href="/">
-          <Title>rentar</Title>
-        </Link>
-      )}
-      <RBox>
-        {profile == '/profile' && auth ? (
-          <Link href="/settings">
-            <SettingsIcon src="/settings.svg" alt="" />
+    <>
+      {auth ? (
+        <NavBar>
+          <Link href="/">
+            <Title>rentar</Title>
           </Link>
-        ) : null}
-        {!(profile == '/profile') && auth ? (
-          <>
+          <RBox>
             <Link href="/notifications">
               <BellIcon src="/bell.svg" alt="" />
             </Link>
@@ -178,11 +158,15 @@ const Header = () => {
               <NewIcon src="/pluswhite.svg" alt="" />
             </Link>
             <Link href="/profile">
-              <Icon src="/user.svg" alt="" />
+              <UserIcon src={user ? `${user.path}` : '/user.svg'} alt="" />
             </Link>
-          </>
-        ) : null}
-        {!auth ? (
+          </RBox>
+        </NavBar>
+      ) : (
+        <NavBar>
+          <Link href="/">
+            <Title>rentar</Title>
+          </Link>
           <Desktop>
             <Link href="/login">
               <LogButton>Inciar sesión</LogButton>
@@ -191,14 +175,9 @@ const Header = () => {
               <JoinButton>Regístrate</JoinButton>
             </Link>
           </Desktop>
-        ) : null}
-        {!auth && !baner && isMobile ? (
-          <Link href="/signup">
-            <JoinButton>Regístrate</JoinButton>
-          </Link>
-        ) : null}
-      </RBox>
-    </NavBar>
+        </NavBar>
+      )}
+    </>
   )
 }
 

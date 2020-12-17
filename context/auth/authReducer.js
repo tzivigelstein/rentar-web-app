@@ -3,6 +3,7 @@ import {
   SIGNUP_ERROR,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  UPDATE_USER,
   AUTH_USER,
   LOG_OUT,
   CLEAN_ALERT,
@@ -26,6 +27,7 @@ export default (state, action) => {
         auth: true,
       }
     case AUTH_USER:
+    case UPDATE_USER:
       return {
         ...state,
         user: action.payload,

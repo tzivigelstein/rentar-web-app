@@ -2,8 +2,6 @@ import React, { useContext, useEffect } from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import authContext from '../context/auth/authContext'
-import appContext from '../context/app/appContext'
-import useOnScreen from '../Hooks/useOnScreen'
 
 const MobileContainer = styled.div`
   background-color: #f1f1f1;
@@ -17,7 +15,7 @@ const MobileBorder = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 90%;
-  margin: 70px auto 0 auto;
+  margin: 54px auto 0 auto;
   border-bottom: 1px solid #aaa;
   padding: 1rem 0;
 `
@@ -61,15 +59,10 @@ const AuthBaner = () => {
   const AuthContext = useContext(authContext)
   const { auth } = AuthContext
 
-  const AppContext = useContext(appContext)
-  const {baner} = AppContext
-
-  let [ref, visible] = useOnScreen({ rootMargin: '0px', threshold: 1 })
-
   return (
     <>
       {!auth ? (
-        <MobileContainer ref={ref}>
+        <MobileContainer>
           <MobileBorder>
             <Link href="/login">
               <LogButton>Inciar sesión</LogButton>

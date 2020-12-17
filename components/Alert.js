@@ -29,74 +29,34 @@ const Alert = () => {
 
   const AlertContainer = styled.div`
     background-color: ${THEME.main};
-    padding: 1rem 4rem;
-    min-width: 420px;
-    position: absolute;
-    right: 0;
-    top: 1rem;
-    border-radius: 8px;
-    border-left: 8px solid ${THEME.secondary};
-    overflow: hidden;
-    animation: slide 1s ease forwards;
-
-    @keyframes slide {
-      0% {
-        transform: translateX(-10vw);
-      }
-      40% {
-        transform: translateX(-60vw);
-      }
-      80% {
-        transform: translateX(4vw);
-      }
-      100% {
-        transform: translateX(-2vw);
-      }
-    }
-
-    @media (max-width: 480px) {
-      min-width: 120px;
-    }
+    padding: 0.4rem 1.8rem;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-bottom: 4px solid ${THEME.secondary};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   `
 
   const ExclamationIcon = styled.img`
-    width: 2rem;
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    width: 1.6rem;
   `
 
-  const Close = styled.span`
-    position: absolute;
-    top: 50%;
-    transform: translateY(-45%);
-    right: 0;
-    padding: 1rem;
-    background-color: ${THEME.third};
-
-    &:hover {
-      background-color: ${THEME.fourth};
-      cursor: pointer;
-    }
-  `
-
-  const TimesIcon = styled.img`
-    width: 1rem;
-  `
-
-  const Message = styled.span`
+  const Message = styled.p`
+    text-align: left;
+    display: block;
+    margin: 0;
+    padding: 0;
     color: ${THEME.text};
     font-size: 1rem;
   `
 
   return (
     <AlertContainer>
-      <ExclamationIcon src={type === 'ok' ? '/check.svg' : '/exclamation.svg'} alt="" />
       <Message>{msg}</Message>
-      <Close>
-        <TimesIcon src="/times.svg" alt="" />
-      </Close>
+      <ExclamationIcon src={type === 'ok' ? '/check.svg' : '/exclamation.svg'} alt="" />
     </AlertContainer>
   )
 }

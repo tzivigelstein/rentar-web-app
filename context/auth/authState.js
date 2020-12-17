@@ -3,11 +3,14 @@ import authContext from './authContext'
 import authReducer from './authReducer'
 import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
+import axios from 'axios'
+
 import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  UPDATE_USER,
   AUTH_USER,
   LOG_OUT,
   CLEAN_ALERT,
@@ -33,13 +36,18 @@ const AuthState = ({ children }) => {
         type: SIGNUP_SUCCESS,
         payload: q.data,
       })
+      router.push('/')
     } catch (error) {
       dispatch({
         type: SIGNUP_ERROR,
         payload: error.response.data,
       })
     }
-    router.push('/login')
+    setTimeout(() => {
+      dispatch({
+        type: CLEAN_ALERT,
+      })
+    }, 3000)
   }
 
   const logIn = async data => {
@@ -49,13 +57,18 @@ const AuthState = ({ children }) => {
         type: LOGIN_SUCCESS,
         payload: q.data,
       })
+      router.push('/')
     } catch (error) {
       dispatch({
         type: LOGIN_ERROR,
         payload: error.response.data,
       })
     }
-    router.push('/')
+    setTimeout(() => {
+      dispatch({
+        type: CLEAN_ALERT,
+      })
+    }, 3000)
   }
 
   const authUser = async () => {
@@ -77,11 +90,17 @@ const AuthState = ({ children }) => {
     }
   }
 
-  const updateUser = async data => {
+  const updateUser = async (newImage, id) => {
     try {
-      console.log(data)
+      const f = new FormData()
+      f.append('image', newImage)
+      const q = await axiosClient.post(`/api/users/${id}`, f)
+      dispatch({
+        type: UPDATE_USER,
+        payload: q.data.user,
+      })
     } catch (error) {
-      console.log(error)
+      console.log(error.response)
     }
   }
 

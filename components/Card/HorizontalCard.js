@@ -10,6 +10,7 @@ const HorizontalPostContainer = styled.div`
   margin-right: 0.8rem;
   border-radius: 12px;
   background: #fff;
+  box-shadow: 0px 0px 30px -28px #000;
   &:first-of-type {
     margin-left: 0.8rem;
   }
@@ -23,6 +24,10 @@ const HorizontalPostImage = styled.img`
   border-radius: 12px 12px 0 0;
 `
 
+const Title = styled.h3`
+  color: #333;
+`
+
 const PostInfoData = styled.div`
   display: flex;
   justify-content: space-around;
@@ -34,7 +39,7 @@ const HorizontalCard = ({ post }) => {
       <HorizontalPostContainer>
         <HorizontalPostImage src={`/${Math.round(Math.random() * 5)}.jpg`} />
         <PostInfo>
-          <h3>{post.title}</h3>
+          <Title>{post.title}</Title>
           <PostInfoData>
             <Icon src="/bath.svg" alt="" />
             <p>{post.bathroom}</p>

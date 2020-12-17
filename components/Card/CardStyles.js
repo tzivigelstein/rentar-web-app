@@ -9,29 +9,38 @@ export const PostInfo = styled.div`
 `
 
 export const Icon = styled.img`
-  width: 1.3rem;
+  width: 1.5rem;
   transition: all 0.3s ease;
-
   &:active {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 `
 
 export const Likes = styled.p`
-  margin-left: 1rem;
-  padding-bottom: 1rem;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  margin: 0 1rem 0 0;
 `
 
 export const ListPostImage = styled.img`
   width: 100%;
 `
-
 export const PostInteraction = styled.div`
-  ul {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-  }
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  width: 90%;
+  border-top: 1px solid #ddd;
+`
+
+export const PostIcons = styled.ul`
+  width: 35%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 1rem 0 0;
+  padding: 0;
 `

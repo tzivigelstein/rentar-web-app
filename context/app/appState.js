@@ -1,14 +1,13 @@
 import React, { useReducer } from 'react'
+import { SET_AUTH_BANER, GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
 import appContext from './appContext'
 import appReducer from './appReducer'
+import { results } from '../../posts'
 import axiosClient from '../../config/axiosClient'
 import authToken from '../../config/authToken'
-import { SET_AUTH_BANER,GET_POSTS_SUCCESS, GET_POSTS_ERROR, SET_NEW_POST_DATA } from '../../types/index'
-import { results } from '../../posts'
 
 const AppState = ({ children }) => {
   const initialState = {
-    baner: null,
     posts: null,
     newPost: {
       file: null,
@@ -75,7 +74,6 @@ const AppState = ({ children }) => {
   return (
     <appContext.Provider
       value={{
-        baner: state.baner,
         posts: state.posts,
         newPost: state.newPost,
         showAuthBaner,

@@ -5,15 +5,28 @@ import authContext from '../context/auth/authContext'
 import styled from '@emotion/styled'
 import { HiddenInput } from '../components/Dropzone'
 import { Container } from '../components/Global'
+import Link from 'next/link'
 import axios from 'axios'
+import appContext from '../context/app/appContext'
+
+const UserSettings = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
 
 const UserName = styled.h2`
   margin: 0;
   font-size: 1.3rem;
-  text-align: center;
+  text-align: left;
   line-height: 1;
   color: #333;
   padding: 0.8rem;
+`
+
+const SettingsIcon = styled.img`
+  width: 1.7rem;
+  margin-right: 1rem;
 `
 
 const UserInfo = styled.div`
@@ -28,7 +41,7 @@ const ProfilePicture = styled.label`
   img {
     width: 6rem;
     height: 5.9rem;
-    border: 2px solid #76b041ff;
+    border: 2px solid #ddd;
     border-radius: 50%;
     background-size: cover;
     padding: 0.2rem;
@@ -81,7 +94,7 @@ const Selector = styled.div`
 
 const Profile = () => {
   const AuthContext = useContext(authContext)
-  const { user, auth, authUser } = AuthContext
+  const { user, auth, authUser, updateUser } = AuthContext
 
   const [activeLikes, setActiveLikes] = useState(false)
   const [activePosts, setActivePosts] = useState(true)
@@ -111,13 +124,6 @@ const Profile = () => {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const uploadProfilePicture = async () => {
-    const f = new FormData()
-    f.append('files', newImage)
-    const q = await axios.post('http://192.168.0.6:4001/', f)
-    console.log(q.data)
   }
 
   const clear = () => {
@@ -157,11 +163,22 @@ const Profile = () => {
       {auth ? (
         <Layout>
           <Container>
-            <UserName>{`@${user.username}`}</UserName>
+            <UserSettings>
+              <UserName>{user.username ? `@${user.username}` : 'Configura tu nombre de usuario'}</UserName>
+              <Link href="/settings">
+                <SettingsIcon src="/settings.svg" />
+              </Link>
+            </UserSettings>
             <UserInfo>
               <ProfilePicture htmlFor="profile">
-                <img src={preview ? `${preview}` : '/user.svg'} alt="" />
-                {preview ? <PreviewText>preview</PreviewText> : null}
+                {activeButton ? (
+                  <>
+                    <img src={preview ? `${preview}` : '/user.svg'} alt="" />
+                    {preview ? <PreviewText>preview</PreviewText> : null}
+                  </>
+                ) : (
+                  <Icon src={user.path ? `${user.path}` : '/user.svg'} alt="" />
+                )}
               </ProfilePicture>
               <HiddenInput
                 onChange={e => {
@@ -179,7 +196,7 @@ const Profile = () => {
                   <>
                     <SaveChanges
                       onClick={() => {
-                        uploadProfilePicture()
+                        updateUser(newImage, user.id)
                         clear()
                       }}
                       type="submit"

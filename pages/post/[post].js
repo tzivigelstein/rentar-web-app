@@ -7,6 +7,18 @@ import authContext from '../../context/auth/authContext'
 import styled from '@emotion/styled'
 import { Container } from '../../components/Global'
 
+const PostContainer = styled(Container)`
+  @media (min-width: 768px) {
+    width: 85%;
+    height: 100vh;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    background-color: #f8f8f8;
+    box-shadow: 0px 0px 30px -28px #000;
+  }
+`
+
 const Image = styled.img`
   width: 100%;
 `
@@ -115,7 +127,7 @@ const Post = () => {
   return (
     <Layout>
       {posts ? (
-        <Container>
+        <PostContainer>
           <Image src={`/${Math.round(Math.random() * 5)}.jpg`} alt="" />
           <InfoContainer>
             <Title>{p ? p.title : null}</Title>
@@ -144,7 +156,7 @@ const Post = () => {
               </tr>
             </Table>
           </InfoContainer>
-        </Container>
+        </PostContainer>
       ) : (
         <p>Hubo un error</p>
       )}
