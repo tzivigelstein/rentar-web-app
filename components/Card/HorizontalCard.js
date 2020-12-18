@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import { PostInfo } from './CardStyles'
-import { Icon } from './CardStyles'
+import { CardIcon } from '../Global'
 
 export const HorizontalPostContainer = styled.div`
   width: 100%;
@@ -41,9 +41,9 @@ const HorizontalCard = ({ post }) => {
         <PostInfo>
           <Title>{post.title}</Title>
           <PostInfoData>
-            <Icon src="/bath.svg" alt="" />
+            <CardIcon src="/bath.svg" alt="" />
             <p>{post.bathroom}</p>
-            <Icon src="/environments.svg" alt="" />
+            <CardIcon src="/environments.svg" alt="" />
             <p>{post.environments} amb.</p>
           </PostInfoData>
         </PostInfo>

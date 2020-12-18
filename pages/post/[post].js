@@ -5,13 +5,13 @@ import { useRouter } from 'next/router'
 import appContext from '../../context/app/appContext'
 import authContext from '../../context/auth/authContext'
 import styled from '@emotion/styled'
-import { Container } from '../../components/Global'
+import { Container, SignupButton, BlueButton } from '../../components/Global'
 
 const PostContainer = styled(Container)`
   @media (min-width: 768px) {
     width: 85%;
-    height: 100vh;
-    margin: 0 auto;
+    height: 100%;
+    margin: 54px auto 0 auto;
     display: grid;
     grid-template-columns: 2fr 1fr;
     background-color: #f8f8f8;
@@ -32,20 +32,15 @@ const Title = styled.h2`
   font-weight: 500;
 `
 
-const Description = styled.p`
-  font-weight: 300;
+const BlockSignupButton = styled(SignupButton)`
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
 `
 
-const Phone = styled.div`
-  background-color: #17bebbff;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 1rem 2rem;
-  margin: 0;
-  width: 100%;
-  text-align: center;
-  border-radius: 8px;
+const Description = styled.p`
+  font-weight: 300;
 `
 
 const HelperContainer = styled.div`
@@ -70,20 +65,7 @@ const LockIcon = styled.img`
   margin: 1rem 0 0 0;
 `
 
-const Signup = styled.p`
-  font-weight: bold;
-  color: #fff;
-  margin: 0 auto 1.2rem 0;
-  padding: 1rem 0;
-  width: 100%;
-  text-align: center;
-  border-radius: 8px;
-  text-transform: uppercase;
-  background: rgb(232, 202, 7);
-  background: linear-gradient(315deg, rgba(232, 202, 7, 1) 0%, rgba(82, 199, 64, 1) 35%, rgba(15, 165, 214, 1) 100%);
-`
-
-const Table = styled.table`
+const PostInfo = styled.table`
   width: 100%;
   text-align: left;
 `
@@ -132,7 +114,7 @@ const Post = () => {
           <InfoContainer>
             <Title>{p ? p.title : null}</Title>
             {auth ? (
-              <Phone>Contactar</Phone>
+              <BlueButton>Contactar</BlueButton>
             ) : (
               <HelperContainer>
                 <div>
@@ -140,12 +122,12 @@ const Post = () => {
                   <LockIcon src="/lock.svg" alt="" />
                 </div>
                 <Link href="/signup">
-                  <Signup>Regístrate</Signup>
+                  <BlockSignupButton>Regístrate</BlockSignupButton>
                 </Link>
               </HelperContainer>
             )}
             <Description>{p ? p.description : null}</Description>
-            <Table>
+            <PostInfo>
               <tr>
                 <th>Ambientes</th>
                 <th>Baños</th>
@@ -154,7 +136,7 @@ const Post = () => {
                 <td>{p ? p.environments : null}</td>
                 <td>{p ? p.bathroom : null}</td>
               </tr>
-            </Table>
+            </PostInfo>
           </InfoContainer>
         </PostContainer>
       ) : (

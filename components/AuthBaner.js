@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import authContext from '../context/auth/authContext'
+import { SignupButton, LoginButton } from './Global'
 
 const MobileContainer = styled.div`
   background-color: #f1f1f1;
@@ -65,10 +66,10 @@ const AuthBaner = () => {
         <MobileContainer>
           <MobileBorder>
             <Link href="/login">
-              <LogButton>Inciar sesión</LogButton>
+              <LoginButton>Inciar sesión</LoginButton>
             </Link>
             <Link href="/signup">
-              <JoinButton>Regístrate</JoinButton>
+              <SignupButton>Regístrate</SignupButton>
             </Link>
           </MobileBorder>
         </MobileContainer>

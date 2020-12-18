@@ -4,10 +4,8 @@ import Layout from '../components/Layout'
 import authContext from '../context/auth/authContext'
 import styled from '@emotion/styled'
 import { HiddenInput } from '../components/Dropzone'
-import { Container } from '../components/Global'
+import { Container, Icon } from '../components/Global'
 import Link from 'next/link'
-import axios from 'axios'
-import appContext from '../context/app/appContext'
 
 const UserSettings = styled.div`
   display: flex;
@@ -153,11 +151,6 @@ const Profile = () => {
     width: 50%;
   `
 
-  const Icon = styled.img`
-    width: 1.2rem;
-    margin-top: 0.3rem;
-  `
-
   return (
     <>
       {auth ? (
@@ -166,7 +159,7 @@ const Profile = () => {
             <UserSettings>
               <UserName>{user.username ? `@${user.username}` : 'Configura tu nombre de usuario'}</UserName>
               <Link href="/settings">
-                <SettingsIcon src="/settings.svg" />
+                <Icon src="/settings.svg" />
               </Link>
             </UserSettings>
             <UserInfo>

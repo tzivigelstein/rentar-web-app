@@ -8,14 +8,6 @@ export const PostInfo = styled.div`
   }
 `
 
-export const Icon = styled.img`
-  width: 1.5rem;
-  transition: all 0.3s ease;
-  &:active {
-    transform: scale(1.1);
-  }
-`
-
 export const Likes = styled.p`
   padding: 0;
   margin: 0;
@@ -31,16 +23,16 @@ export const PostInteraction = styled.div`
   margin: 0 auto;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  padding: 0.3rem 0;
   width: 90%;
   border-top: 1px solid #ddd;
 `
 
 export const PostIcons = styled.ul`
-  width: 35%;
+  width: max-content;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 1rem 0 0;
+  margin: 0;
   padding: 0;
 `

@@ -4,12 +4,12 @@ import styled from '@emotion/styled'
 import { ListPostImage } from './CardStyles'
 import { PostInfo } from './CardStyles'
 import { PostInteraction, PostIcons } from './CardStyles'
-import { Icon } from './CardStyles'
+import { CardIcon } from '../Global'
 import { Likes } from './CardStyles'
 
 const ListPostContainer = styled.div`
   width: 100%;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1rem;
   background: #fff;
   box-shadow: 0px 0px 30px -28px #000;
 
@@ -40,11 +40,8 @@ const ListCard = ({ post }) => {
       </PostInfo>
       <PostInteraction>
         <PostIcons>
-          <Icon onClick={() => setLike(!like)} src={like ? '/hearts.svg' : '/heartr.svg'} />
-          <Icon src="/share.svg" />
-          <Link href="/post/[id]" as={`/post/${post._id}`}>
-            <Icon src="/plus.svg" />
-          </Link>
+          <CardIcon onClick={() => setLike(!like)} src={like ? '/hearts.svg' : '/heartr.svg'} />
+          <CardIcon src="/share.svg" />
         </PostIcons>
         <Likes>{post.likes} Likes</Likes>
       </PostInteraction>

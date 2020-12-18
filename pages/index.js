@@ -7,20 +7,10 @@ import ListCard from '../components/Card/ListCard'
 import authContext from '../context/auth/authContext'
 import AuthBaner from '../components/AuthBaner'
 import { Container } from '../components/Global'
-
-export const TitlesH2 = styled.p`
-  margin: 0;
-  padding: 1.4rem 0;
-  line-height: 1;
-  margin-left: 1rem;
-  font-weight: bold;
-  font-size: 1.8rem;
-  color: #333;
-`
+import NotFound from '../components/NotFound'
 
 export const HorizontalPosts = styled.ul`
-  padding: 0;
-  height: max-content;
+  padding: 1rem 0;
   overflow-x: auto;
   display: flex;
   margin: 0;
@@ -55,17 +45,13 @@ const Index = () => {
       <Container>
         {!auth ? <AuthBaner /> : null}
         <>
-          <TitlesH2>Recientes</TitlesH2>
           {posts ? (
             <HorizontalPosts>
               {posts.map(post => (
                 <HorizontalCard key={post._id} post={post} />
               ))}
             </HorizontalPosts>
-          ) : (
-            <p>No hay publicaciones</p>
-          )}
-          <TitlesH2>Más vistas</TitlesH2>
+          ) : null}
           {posts ? (
             <ListPosts>
               {posts.map(post => (
@@ -73,7 +59,7 @@ const Index = () => {
               ))}
             </ListPosts>
           ) : (
-            <p>No hay publicaciones</p>
+            <NotFound />
           )}
         </>
       </Container>

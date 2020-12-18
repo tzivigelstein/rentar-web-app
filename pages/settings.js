@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
-import { TitlesH2 } from './index'
 import { Input } from '../components/Form/FormStyles'
 import authContext from '../context/auth/authContext'
 
@@ -89,8 +88,8 @@ const Settings = () => {
     <>
       {auth ? (
         <>
-          <Link href="/">
-            <TitlesH2>Settings</TitlesH2>
+          <Link href="/profile">
+            <p>Back</p>
           </Link>
           {form ? (
             <>

@@ -2,19 +2,29 @@ import React, { useState, useContext, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Link from 'next/link'
 import authContext from '../context/auth/authContext'
-import appContext from '../context/app/appContext'
+import { Icon, ImageIcon, SignupButton, LoginButton } from './Global'
 
-const NavBar = styled.nav`
+const NavBarContainer = styled.nav`
   position: fixed;
   top: 0;
   width: 100%;
   height: 54px;
   background: #fff;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
   line-height: 1.5;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+`
+
+const NavBar = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #ddd;
+  width: 100%;
+  @media (min-width: 1367px) {
+    max-width: 50%;
+    margin: 0 auto;
+  }
 `
 
 const Title = styled.h1`
@@ -28,156 +38,64 @@ const Title = styled.h1`
   display: inline-block;
 `
 
-const Box = styled.span`
-  display: flex;
-  width: fit-content;
-  align-items: center;
-`
-
-const ChevronIcon = styled.img`
-  width: 0.8rem;
-  padding: 0;
-  margin: 4px auto;
-`
-
-const RBox = styled.div`
+const IconsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-`
-
-const Icon = styled.img`
-  width: 1.8rem;
-  padding: 0;
-  margin: 4px auto;
-  float: right;
-`
-
-const UserIcon = styled.img`
-  width: 2rem;
-  border-radius: 50%;
-  padding: 0.1rem;
-  border: 1px solid #ddd;
-`
-
-const BellIcon = styled.img`
-  width: 1.5rem;
-  padding: 0;
-  margin: 4px auto;
-`
-
-const NewIcon = styled.img`
-  width: 1.7rem;
-  margin: 0 1.5rem;
-  background: rgb(232, 202, 7);
-  background: linear-gradient(315deg, rgba(232, 202, 7, 1) 0%, rgba(82, 199, 64, 1) 35%, rgba(15, 165, 214, 1) 100%);
-  border-radius: 25%;
-  padding: 0.25rem 0.3rem;
+  width: max-content;
 `
 
 const Desktop = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   @media (max-width: 480px) {
     display: none;
   }
 `
 
-const JoinButton = styled.button`
-  border-radius: 8px;
-  border: 1px solid;
-  background: rgb(232, 202, 7);
-  background: linear-gradient(315deg, rgba(232, 202, 7, 1) 0%, rgba(82, 199, 64, 1) 35%, rgba(15, 165, 214, 1) 100%);
-  padding: 0.5rem 2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  outline: none;
-  cursor: pointer;
-  margin-left: 1.5rem;
-  @media (max-width: 480px) {
-    margin-left: 0;
-  }
-`
-
-const LogButton = styled.button`
-  border: 2px solid;
-  border-image-slice: 1;
-  border-image-source: linear-gradient(
-    315deg,
-    rgba(232, 202, 7, 1) 0%,
-    rgba(82, 199, 64, 1) 35%,
-    rgba(15, 165, 214, 1) 100%
-  );
-  padding: 0.5rem 2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #222;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
-`
-
 const Header = () => {
-  const [profile, setProfile] = useState('')
-  const [isMobile, setIsMobile] = useState(false)
-
   const AuthContext = useContext(authContext)
   const { auth, user } = AuthContext
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setProfile(window.location.pathname)
-    }
-    if (
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/webOS/i) ||
-      navigator.userAgent.match(/iPhone/i) ||
-      navigator.userAgent.match(/iPod/i) ||
-      navigator.userAgent.match(/BlackBerry/i) ||
-      navigator.userAgent.match(/Windows Phone/i)
-    ) {
-      setIsMobile(true)
-    } else {
-      setIsMobile(false)
-    }
-  }, [])
 
   return (
     <>
       {auth ? (
-        <NavBar>
-          <Link href="/">
-            <Title>rentar</Title>
-          </Link>
-          <RBox>
-            <Link href="/notifications">
-              <BellIcon src="/bell.svg" alt="" />
+        <NavBarContainer>
+          <NavBar>
+            <Link href="/">
+              <Title>rentar</Title>
             </Link>
-            <Link href="/new">
-              <NewIcon src="/pluswhite.svg" alt="" />
-            </Link>
-            {user ? (
-              <Link href="/profile">
-                <UserIcon src={user.path ? `${user.path}` : '/user.svg'} alt="" />
+            <IconsContainer>
+              <Link href="/notifications">
+                <Icon src="/search.svg" alt="" />
               </Link>
-            ) : null}
-          </RBox>
-        </NavBar>
+              <Link href="/new">
+                <Icon src="/plus.svg" alt="" />
+              </Link>
+              {user ? (
+                <Link href="/profile">
+                  <ImageIcon src={user.path ? `${user.path}` : '/user.svg'} alt="" />
+                </Link>
+              ) : null}
+            </IconsContainer>
+          </NavBar>
+        </NavBarContainer>
       ) : (
-        <NavBar>
-          <Link href="/">
-            <Title>rentar</Title>
-          </Link>
-          <Desktop>
-            <Link href="/login">
-              <LogButton>Inciar sesión</LogButton>
+        <NavBarContainer>
+          <NavBar>
+            <Link href="/">
+              <Title>rentar</Title>
             </Link>
-            <Link href="/signup">
-              <JoinButton>Regístrate</JoinButton>
-            </Link>
-          </Desktop>
-        </NavBar>
+            <Desktop>
+              <Link href="/login">
+                <LoginButton>Inciar sesión</LoginButton>
+              </Link>
+              <Link href="/signup">
+                <SignupButton>Regístrate</SignupButton>
+              </Link>
+            </Desktop>
+          </NavBar>
+        </NavBarContainer>
       )}
     </>
   )

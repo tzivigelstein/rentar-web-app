@@ -51,13 +51,13 @@ export const Input = styled.input`
   outline: none;
   &:focus {
     border-width: 1.7px;
-    border-color: #76b041ff;
+    border-color: #52c740;
   }
 `
 
 export const Button = styled.input`
   display: block;
-  background-color: #17bebbff;
+  background-color: #1976d2;
   color: white;
   border-radius: 8px;
   padding: 0.8rem 1rem;
@@ -77,10 +77,10 @@ export const Account = styled.p`
 `
 
 export const SwitchLink = styled.span`
-  color: #17bebbff;
+  color: #1976d2;
   cursor: pointer;
   text-decoration: underline;
   &:visited {
-    color: #76b041ff;
+    color: #52c740;
   }
 `
